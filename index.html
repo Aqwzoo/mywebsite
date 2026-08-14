@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>JasperRecon</title>
 
 <style>
@@ -10,119 +11,210 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg: #050505;
+    --panel: #0b0b0b;
+    --panel2: #101010;
+    --border: #222;
+    --text: #d6d6d6;
+    --muted: #777;
+    --accent: #00d084;
+    --warning: #d6a84f;
+    --danger: #d65353;
+}
+
 body {
     margin: 0;
-    background: #070b10;
-    color: #d7e0e8;
-    font-family: Consolas, "Courier New", monospace;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
 header {
-    padding: 25px;
-    border-bottom: 1px solid #1b2a35;
-    background: #0a1017;
+    height: 64px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    background: #080808;
 }
 
-.logo {
-    color: #00ff9c;
-    font-size: 28px;
-    font-weight: bold;
+.brand {
+    font-family: Consolas, monospace;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #eee;
 }
 
-.subtitle {
-    color: #71808c;
-    margin-top: 6px;
+.brand span {
+    color: var(--accent);
+}
+
+.version {
+    margin-left: auto;
+    color: var(--muted);
+    font-family: Consolas, monospace;
+    font-size: 12px;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: auto;
-    padding: 25px;
+    padding: 30px;
 }
 
 .search {
     display: flex;
     gap: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 input {
     flex: 1;
-    background: #0c141c;
-    border: 1px solid #263744;
-    color: white;
-    padding: 15px;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 16px;
+    background: #090909;
+    border: 1px solid #292929;
+    color: #eee;
+    padding: 13px 15px;
+    border-radius: 4px;
+    outline: none;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #444;
 }
 
 button {
-    background: #00ff9c;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 6px;
-    font-weight: bold;
+    background: #e8e8e8;
+    color: #080808;
+    border: 0;
+    border-radius: 4px;
+    padding: 0 24px;
+    font-weight: 600;
     cursor: pointer;
 }
 
 button:hover {
-    background: #00d982;
+    background: #fff;
 }
 
-.status {
-    background: #0a1017;
-    border: 1px solid #1b2a35;
-    padding: 15px;
-    border-radius: 7px;
+.statusbar {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
     margin-bottom: 20px;
+    font-family: Consolas, monospace;
+    font-size: 12px;
 }
 
-.status span {
-    color: #00ff9c;
+.dot {
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 9px;
+}
+
+#status {
+    color: var(--accent);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
 }
 
 .card {
-    background: #0a1017;
-    border: 1px solid #1b2a35;
-    border-radius: 8px;
-    padding: 20px;
-    min-height: 150px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-.card h2 {
-    color: #00ff9c;
-    font-size: 16px;
-    margin-top: 0;
-    border-bottom: 1px solid #1b2a35;
-    padding-bottom: 10px;
+.card-header {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel2);
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: .5px;
+}
+
+.card-body {
+    padding: 15px;
+    min-height: 130px;
 }
 
 .data {
-    color: #b9c6d0;
     white-space: pre-wrap;
     word-break: break-word;
+    color: #ccc;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.7;
 }
 
-.loading {
-    color: #ffcc66;
+.label {
+    color: #666;
 }
 
-.error {
-    color: #ff6677;
+.value {
+    color: #ddd;
+}
+
+.full {
+    grid-column: span 3;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.action {
+    background: #111;
+    color: #bbb;
+    border: 1px solid #292929;
+    padding: 9px 14px;
+    border-radius: 3px;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+}
+
+.action:hover {
+    background: #181818;
+    color: white;
+}
+
+.notice {
+    color: #666;
+    font-size: 11px;
+    margin-top: 10px;
 }
 
 footer {
     text-align: center;
-    color: #53616d;
-    padding: 30px;
-    font-size: 12px;
+    color: #444;
+    padding: 35px;
+    font-family: Consolas, monospace;
+    font-size: 11px;
+}
+
+@media(max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: span 1;
+    }
 }
 </style>
 </head>
@@ -130,77 +222,133 @@ footer {
 <body>
 
 <header>
-    <div class="logo">JASPERRECON // OSINT LAB</div>
-    <div class="subtitle">Public-domain reconnaissance dashboard</div>
+    <div class="brand"><span>J</span>ASPERRECON</div>
+    <div class="version">OSINT / NETWORK ANALYSIS</div>
 </header>
 
 <div class="container">
 
     <div class="search">
-        <input id="target" placeholder="Enter a domain, e.g. example.com">
-        <button onclick="scan()">SCAN</button>
+        <input
+            id="target"
+            placeholder="Enter domain (example.com)"
+            autocomplete="off"
+        >
+        <button onclick="scan()">ANALYZE</button>
     </div>
 
-    <div class="status">
+    <div class="statusbar">
+        <div class="dot"></div>
         STATUS:
-        <span id="status">READY</span>
+        <span id="status">&nbsp;READY</span>
     </div>
 
     <div class="grid">
 
         <div class="card">
-            <h2>DOMAIN</h2>
-            <div id="domain" class="data">Waiting for target...</div>
+            <div class="card-header">TARGET</div>
+            <div class="card-body">
+                <div id="domain" class="data">No target selected.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>IP / LOCATION</h2>
-            <div id="location" class="data">Waiting for target...</div>
+            <div class="card-header">NETWORK / LOCATION</div>
+            <div class="card-body">
+                <div id="location" class="data">No data.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>DNS — A</h2>
-            <div id="a" class="data">Waiting...</div>
+            <div class="card-header">RDAP / REGISTRATION</div>
+            <div class="card-body">
+                <div id="rdap" class="data">No data.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>DNS — AAAA</h2>
-            <div id="aaaa" class="data">Waiting...</div>
+            <div class="card-header">DNS / A</div>
+            <div class="card-body">
+                <div id="a" class="data">No data.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>DNS — MX</h2>
-            <div id="mx" class="data">Waiting...</div>
+            <div class="card-header">DNS / AAAA</div>
+            <div class="card-body">
+                <div id="aaaa" class="data">No data.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>DNS — NS</h2>
-            <div id="ns" class="data">Waiting...</div>
+            <div class="card-header">DNS / MX</div>
+            <div class="card-body">
+                <div id="mx" class="data">No data.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>DNS — TXT</h2>
-            <div id="txt" class="data">Waiting...</div>
+            <div class="card-header">DNS / NS</div>
+            <div class="card-body">
+                <div id="ns" class="data">No data.</div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>RDAP</h2>
-            <div id="rdap" class="data">Waiting...</div>
+            <div class="card-header">DNS / TXT</div>
+            <div class="card-body">
+                <div id="txt" class="data">No data.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">DNS / CNAME</div>
+            <div class="card-body">
+                <div id="cname" class="data">No data.</div>
+            </div>
+        </div>
+
+        <div class="card full">
+            <div class="card-header">RECON ACTIONS</div>
+            <div class="card-body">
+
+                <div class="actions">
+                    <button class="action" onclick="scan()">DNS ANALYSIS</button>
+                    <button class="action" onclick="openRDAP()">OPEN RDAP</button>
+                    <button class="action" onclick="openDNS()">DNS LOOKUP</button>
+                </div>
+
+                <div class="notice">
+                    Network scanning features will be connected to the authorized
+                    WSL backend in the next stage.
+                </div>
+
+            </div>
         </div>
 
     </div>
 </div>
 
 <footer>
-    JasperRecon • OSINT / defensive research • Public information only
+    JASPERRECON — PUBLIC INFORMATION / AUTHORIZED SECURITY RESEARCH
 </footer>
 
 <script>
 
+function cleanDomain(input) {
+    return input
+        .trim()
+        .replace(/^https?:\/\//i, "")
+        .split("/")[0]
+        .split(":")[0];
+}
+
 async function dnsLookup(domain, type) {
 
     const url =
-        `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=${type}`;
+        "https://dns.google/resolve?name=" +
+        encodeURIComponent(domain) +
+        "&type=" + type;
 
     const response = await fetch(url);
 
@@ -210,7 +358,6 @@ async function dnsLookup(domain, type) {
 
     return await response.json();
 }
-
 
 function displayDNS(id, data) {
 
@@ -225,75 +372,79 @@ function displayDNS(id, data) {
         data.Answer.map(record => record.data).join("\n");
 }
 
-
 async function scan() {
 
-    const input = document.getElementById("target").value.trim();
+    const input = document.getElementById("target").value;
 
-    if (!input) {
-        alert("Enter a domain first.");
+    if (!input.trim()) {
         return;
     }
 
-    const domain = input
-        .replace(/^https?:\/\//, "")
-        .split("/")[0];
+    const domain = cleanDomain(input);
 
-    document.getElementById("status").textContent = "SCANNING...";
-
+    document.getElementById("status").textContent = " ANALYZING";
     document.getElementById("domain").textContent = domain;
 
-    document.querySelectorAll(".data").forEach(element => {
-        if (element.id !== "domain") {
-            element.textContent = "Querying...";
+    document.querySelectorAll(".data").forEach(el => {
+        if (el.id !== "domain") {
+            el.textContent = "Querying...";
         }
     });
 
     try {
 
-        const a = await dnsLookup(domain, "A");
+        const [
+            a,
+            aaaa,
+            mx,
+            ns,
+            txt,
+            cname
+        ] = await Promise.all([
+            dnsLookup(domain, "A"),
+            dnsLookup(domain, "AAAA"),
+            dnsLookup(domain, "MX"),
+            dnsLookup(domain, "NS"),
+            dnsLookup(domain, "TXT"),
+            dnsLookup(domain, "CNAME")
+        ]);
+
         displayDNS("a", a);
-
-        const aaaa = await dnsLookup(domain, "AAAA");
         displayDNS("aaaa", aaaa);
-
-        const mx = await dnsLookup(domain, "MX");
         displayDNS("mx", mx);
-
-        const ns = await dnsLookup(domain, "NS");
         displayDNS("ns", ns);
-
-        const txt = await dnsLookup(domain, "TXT");
         displayDNS("txt", txt);
-
-        /*
-         * Use the first public IPv4 address for
-         * approximate geolocation.
-         */
+        displayDNS("cname", cname);
 
         let ip = null;
 
         if (a.Answer) {
             ip = a.Answer
                 .map(x => x.data)
-                .find(x => /^\d+\.\d+\.\d+\.\d+$/.test(x));
+                .find(x =>
+                    /^\d{1,3}(\.\d{1,3}){3}$/.test(x)
+                );
         }
 
         if (ip) {
 
             const geoResponse =
-                await fetch(`https://ipapi.co/${ip}/json/`);
+                await fetch(
+                    "https://ipapi.co/" +
+                    encodeURIComponent(ip) +
+                    "/json/"
+                );
 
             const geo = await geoResponse.json();
 
             document.getElementById("location").textContent =
-`IP: ${ip}
-City: ${geo.city || "Unknown"}
-Region: ${geo.region || "Unknown"}
-Country: ${geo.country_name || "Unknown"}
-Postal: ${geo.postal || "Unknown"}
-ISP/Org: ${geo.org || "Unknown"}
-ASN: ${geo.asn || "Unknown"}`;
+`IPv4       ${ip}
+Country    ${geo.country_name || "Unknown"}
+Region     ${geo.region || "Unknown"}
+City       ${geo.city || "Unknown"}
+Postal     ${geo.postal || "Unknown"}
+ASN        ${geo.asn || "Unknown"}
+Network    ${geo.org || "Unknown"}`;
 
         } else {
 
@@ -302,50 +453,22 @@ ASN: ${geo.asn || "Unknown"}`;
 
         }
 
-        /*
-         * RDAP
-         */
-
         try {
 
             const rdapResponse =
                 await fetch(
-                    `https://rdap.org/domain/${encodeURIComponent(domain)}`
+                    "https://rdap.org/domain/" +
+                    encodeURIComponent(domain)
                 );
 
             if (rdapResponse.ok) {
 
                 const rdap = await rdapResponse.json();
 
-                let registrar = "Unknown";
-
-                if (rdap.entities) {
-
-                    for (const entity of rdap.entities) {
-
-                        if (entity.roles &&
-                            entity.roles.includes("registrar")) {
-
-                            if (entity.vcardArray &&
-                                entity.vcardArray[1]) {
-
-                                const fn =
-                                    entity.vcardArray[1]
-                                    .find(x => x[0] === "fn");
-
-                                if (fn) {
-                                    registrar = fn[3];
-                                }
-                            }
-                        }
-                    }
-                }
-
                 document.getElementById("rdap").textContent =
-`Domain: ${rdap.ldhName || domain}
-Status: ${(rdap.status || []).join(", ") || "Unknown"}
-Registrar: ${registrar}
-Nameservers: ${
+`Domain       ${rdap.ldhName || domain}
+Status       ${(rdap.status || []).join(", ") || "Unknown"}
+Nameservers  ${
     (rdap.nameservers || [])
     .map(x => x.ldhName)
     .join("\n") || "Unknown"
@@ -354,32 +477,67 @@ Nameservers: ${
             } else {
 
                 document.getElementById("rdap").textContent =
-                    "RDAP information unavailable.";
+                    "RDAP unavailable.";
 
             }
 
         } catch {
 
             document.getElementById("rdap").textContent =
-                "RDAP query failed.";
+                "RDAP request failed.";
 
         }
 
         document.getElementById("status").textContent =
-            "SCAN COMPLETE";
+            " COMPLETE";
 
     } catch (error) {
 
         console.error(error);
 
         document.getElementById("status").textContent =
-            "SCAN ERROR";
-
-        document.getElementById("location").textContent =
-            "Unable to query target.";
+            " ERROR";
 
     }
 }
+
+function openRDAP() {
+
+    const domain =
+        cleanDomain(document.getElementById("target").value);
+
+    if (domain) {
+        window.open(
+            "https://rdap.org/domain/" +
+            encodeURIComponent(domain),
+            "_blank"
+        );
+    }
+}
+
+function openDNS() {
+
+    const domain =
+        cleanDomain(document.getElementById("target").value);
+
+    if (domain) {
+        window.open(
+            "https://dns.google/resolve?name=" +
+            encodeURIComponent(domain) +
+            "&type=A",
+            "_blank"
+        );
+    }
+}
+
+document.getElementById("target")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            scan();
+        }
+
+    });
 
 </script>
 
